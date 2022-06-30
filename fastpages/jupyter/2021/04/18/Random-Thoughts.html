@@ -95,7 +95,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      1 min read
+      17 min read
     
 </span></p>
 
@@ -151,6 +151,597 @@ window.onload = wrap_img;
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>The comment #hide_input was used to hide the code that produced this.
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="kn">from</span> <span class="nn">randassign</span> <span class="kn">import</span> <span class="n">RandAssign</span>
+<span class="n">ra</span> <span class="o">=</span> <span class="n">RandAssign</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">make_problem</span><span class="p">():</span>
+	<span class="n">question_choice</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s1">'The thermal energy comes from the power used by each resistor. Since the current is highest in C, that is the resistor generating the most thermal energy.'</span><span class="p">,</span> <span class="s1">'It’s the power that needs to be considered, and because the equivalent resistance is higher in the branch with two resistors, so I think it is A and B having the most thermal energy.'</span><span class="p">,</span><span class="s1">'They are all the same resistance, so they all generate the same thermal energy.'</span><span class="p">])</span>
+	
+	<span class="n">problem_template</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'''</span>
+<span class="s1">	\begin{{figure}}[!h]</span>
+<span class="s1">	\begin{{center}}\begin{{circuitikz}}\draw</span>
+<span class="s1">		(0,0) to[battery,invert,l=$V_b$] (0,3)</span>
+<span class="s1">		to[resistor=$R_1$] (3,3)</span>
+<span class="s1">		to[resistor=$R_2$] (3,0)</span>
+<span class="s1">		to[resistor=$R_4$] (0,0)</span>
+<span class="s1">	(0,3)	to[resistor=$R_3$] (3,0)</span>
+<span class="s1">	;\end{{circuitikz}}\end{{center}}</span>
+<span class="s1">	\end{{figure}}</span>
+<span class="s1">	'''</span>
+	
+	<span class="n">problem</span> <span class="o">=</span> <span class="n">problem_template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">question_choice</span><span class="p">)</span>
+	
+	<span class="k">return</span><span class="p">(</span><span class="n">problem</span><span class="p">)</span>
+	
+<span class="n">p</span> <span class="o">=</span> <span class="n">make_problem</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+	\begin{figure}[!h]
+	\begin{center}\begin{circuitikz}\draw
+		(0,0) to[battery,invert,l=$V_b$] (0,3)
+		to[resistor=$R_1$] (3,3)
+		to[resistor=$R_2$] (3,0)
+		to[resistor=$R_4$] (0,0)
+	(0,3)	to[resistor=$R_3$] (3,0)
+	;\end{circuitikz}\end{center}
+	\end{figure}
+	
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="kn">from</span> <span class="nn">randassign</span> <span class="kn">import</span> <span class="n">RandAssign</span>
+<span class="n">ra</span> <span class="o">=</span> <span class="n">RandAssign</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">make_problem</span><span class="p">():</span>
+	<span class="c1"># Random values for this problem</span>
+	<span class="k">def</span> <span class="nf">rand_mass</span><span class="p">():</span>
+		<span class="k">return</span> <span class="nb">round</span><span class="p">(</span><span class="n">uniform</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span><span class="mi">2</span><span class="p">)</span>
+	<span class="k">def</span> <span class="nf">rand_length</span><span class="p">():</span>
+		<span class="k">return</span> <span class="nb">round</span><span class="p">(</span><span class="n">uniform</span><span class="p">(</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span><span class="mi">2</span><span class="p">)</span>
+	<span class="k">def</span> <span class="nf">rand_speed</span><span class="p">():</span>
+		<span class="k">return</span> <span class="nb">round</span><span class="p">(</span><span class="n">uniform</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">8</span><span class="p">),</span><span class="mi">2</span><span class="p">)</span>
+	<span class="k">def</span> <span class="nf">rand_angle</span><span class="p">():</span>
+		<span class="k">return</span> <span class="n">random</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">65</span><span class="p">)</span>	
+
+	<span class="n">mass</span> <span class="o">=</span> <span class="n">rand_mass</span><span class="p">()</span>
+	<span class="nb">print</span><span class="p">(</span><span class="n">mass</span><span class="p">)</span>
+	<span class="n">length</span> <span class="o">=</span> <span class="n">rand_length</span><span class="p">()</span>
+	<span class="nb">print</span><span class="p">(</span><span class="n">length</span><span class="p">)</span>
+	<span class="n">speed</span> <span class="o">=</span> <span class="n">rand_speed</span><span class="p">()</span>
+	<span class="nb">print</span><span class="p">(</span><span class="n">speed</span><span class="p">)</span>
+	<span class="n">angle</span> <span class="o">=</span> <span class="n">rand_angle</span><span class="p">()</span>
+	<span class="nb">print</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
+
+<span class="c1">#	question_choice = random.choice(["$R_1$", "$R_1$", "$R_1$", "$R_1$"])</span>
+	
+	<span class="n">problem_template</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'''</span>
+<span class="s1">    A $m=\SI{{</span><span class="si">{0:.3g}</span><span class="s1">}}{{\kilogram}}$ mass swings at the end of a light string (length = $l=\SI{{</span><span class="si">{1:.3g}</span><span class="s1">}}{{\meter}}$). </span>
+<span class="s1">    Its speed at the lowest point on its circular path is $s=\SI{{</span><span class="si">{2:.3g}</span><span class="s1">}}{{\meter/\second}}$. </span>
+<span class="s1">    What is its kinetic energy at an instant when the string makes an angle of $ \theta =\SI{{</span><span class="si">{3:.3g}</span><span class="s1">}} $ degrees with the vertical\? </span>
+<span class="s1">    Include an energy bar chart diagram.</span>
+<span class="s1">	'''</span>
+	
+	
+	<span class="c1">## NO SOLUTION CODE HAS BEEN WRITTEN (YET)</span>
+<span class="c1">#	R12 = R1+R2</span>
+<span class="c1">#	R123 = 1/((1/R3)+(1/R12))</span>
+<span class="c1">#	Req = R123 + R4</span>
+<span class="c1">#	I4 = Vb/Req</span>
+<span class="c1">#	V4 = I4*R4</span>
+<span class="c1">#	V3 = Vb-V4</span>
+<span class="c1">#	V12 = V3</span>
+<span class="c1">#	I1 = V12/R12</span>
+<span class="c1">#	I2 = I1</span>
+<span class="c1">#	I3 = V3/R3</span>
+<span class="c1">#	V1 = I1*R1</span>
+<span class="c1">#	V2 = I2*R2</span>
+<span class="c1">#	W1 = I1**2*R1</span>
+<span class="c1">#	W2 = I2**2*R2</span>
+<span class="c1">#	W3 = I3**2*R3</span>
+<span class="c1">#	W4 = I4**2*R4</span>
+	<span class="n">problem</span> <span class="o">=</span> <span class="n">problem_template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mass</span><span class="p">,</span><span class="n">length</span><span class="p">,</span><span class="n">speed</span><span class="p">,</span><span class="n">angle</span><span class="p">)</span>
+	
+<span class="c1">#	return(problem,V1,V2,V3,V4,I1,I2,I3,I4,W1,W2,W3,W4)</span>
+	<span class="k">return</span><span class="p">(</span><span class="n">problem</span><span class="p">)</span>
+	
+<span class="c1">## Generate 4 unique problems</span>
+<span class="c1">## The chance of two identical problems is very low in this case</span>
+<span class="c1">## But checking for identical problems won't hurt</span>
+<span class="c1">#problems = []</span>
+<span class="c1">#while len(problems) &lt; 4:</span>
+<span class="c1">#    p,v1,v2,v3,v4,v5,i1,i2,i3,i4,i5 = make_problem()</span>
+<span class="c1">#    if p not in problems:</span>
+<span class="c1">#        problems.append(p)</span>
+<span class="c1">#        t = '\\SI{{{0:.3g}}}{{\\volt}} and \\SI{{{1:.3g}}}{{\\volt}}and \\SI{{{2:.3g}}}{{\\volt}} and \\SI{{{3:.3g}}}{{\\volt}} and \\SI{{{4:.3g}}}{{\\volt}} and \\SI{{{5:.3g}}}{{\\ampere}} and \\SI{{{6:.3g}}}{{\\ampere}} and \\SI{{{7:.3g}}}{{\\ampere}} and \\SI{{{8:.3g}}}{{\\ampere}} and \\SI{{{9:.3g}}}{{\\ampere}}'</span>
+<span class="c1">#        ra.addsoln(t.format(v1,v2,v3,v4,v5,i1,i2,i3,i4,i5))</span>
+
+<span class="c1">#print('\\begin{enumerate}')</span>
+<span class="c1">#for n, p in enumerate(problems):</span>
+<span class="c1">#    print('\\item ' + p)</span>
+<span class="c1">#    if n+1 &lt; len(problems):</span>
+<span class="c1">#        print(r'\vspace{1in}')</span>
+<span class="c1">#print('\\end{enumerate}')</span>
+
+<span class="n">p</span> <span class="o">=</span> <span class="n">make_problem</span><span class="p">()</span>
+<span class="c1">#t = '\\SI{{{0:.3g}}}{{\\volt}} and \\SI{{{1:.3g}}}{{\\volt}}and \\SI{{{2:.3g}}}{{\\volt}} and \\SI{{{3:.3g}}}{{\\volt}} and \\SI{{{4:.3g}}}{{\\ampere}} and \\SI{{{5:.3g}}}{{\\ampere}} and \\SI{{{6:.3g}}}{{\\ampere}} and \\SI{{{7:.3g}}}{{\\ampere}}, and \\SI{{{8:.3g}}}{{\\watt}}, and \\SI{{{9:.3g}}}{{\\watt}}, and \\SI{{{10:.3g}}}{{\\watt}} and \\SI{{{11:.3g}}}{{\\watt}}'</span>
+<span class="c1">#ra.addsoln(t.format(v1,v2,v3,v4,i1,i2,i3,i4,w1,w2,w3,w4))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>2.98
+1.98
+4.45
+40
+
+    A $m=\SI{2.98}{\kilogram}$ mass swings at the end of a light string (length = $l=\SI{1.98}{\meter}$). 
+    Its speed at the lowest point on its circular path is $s=\SI{4.45}{\meter/\second}$. 
+    What is its kinetic energy at an instant when the string makes an angle of $ \theta =\SI{40} $ degrees with the vertical\? 
+    Include an energy bar chart diagram.
+	
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="kn">from</span> <span class="nn">randassign</span> <span class="kn">import</span> <span class="n">RandAssign</span>
+<span class="n">ra</span> <span class="o">=</span> <span class="n">RandAssign</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">make_problem</span><span class="p">():</span>
+	<span class="c1"># Random values of circuit components</span>
+	<span class="k">def</span> <span class="nf">rand_capacitor</span><span class="p">():</span>
+		<span class="k">return</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="mi">15</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">33</span><span class="p">,</span> <span class="mi">47</span><span class="p">,</span> <span class="mi">68</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">220</span><span class="p">,</span> <span class="mi">330</span><span class="p">,</span> <span class="mi">470</span><span class="p">,</span> <span class="mi">680</span><span class="p">])</span>
+	<span class="k">def</span> <span class="nf">rand_battery</span><span class="p">():</span>
+		<span class="k">return</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="mf">1.5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">12</span><span class="p">])</span>
+		
+	<span class="n">C1</span> <span class="o">=</span> <span class="n">rand_capacitor</span><span class="p">()</span><span class="o">*</span><span class="mf">1e-6</span>
+	<span class="n">C2</span> <span class="o">=</span> <span class="n">rand_capacitor</span><span class="p">()</span><span class="o">*</span><span class="mf">1e-6</span>
+	<span class="n">C3</span> <span class="o">=</span> <span class="n">rand_capacitor</span><span class="p">()</span><span class="o">*</span><span class="mf">1e-6</span>
+	<span class="n">V1</span> <span class="o">=</span> <span class="n">rand_battery</span><span class="p">()</span>
+	
+	<span class="c1"># Find equivalent capacitance between C2 and C3:</span>
+	<span class="n">C23</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">((</span><span class="mi">1</span><span class="o">/</span><span class="n">C2</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">C3</span><span class="p">))</span>
+	<span class="n">C123</span> <span class="o">=</span> <span class="n">C23</span><span class="o">+</span><span class="n">C1</span>
+	
+	<span class="c1">#Find charges</span>
+	<span class="n">Q23</span> <span class="o">=</span> <span class="n">C23</span><span class="o">*</span><span class="n">V1</span>
+	<span class="n">Q1</span> <span class="o">=</span> <span class="n">C1</span><span class="o">*</span><span class="n">V1</span>
+	<span class="n">Q2</span> <span class="o">=</span> <span class="n">Q23</span>
+	<span class="n">Q3</span> <span class="o">=</span> <span class="n">Q23</span>
+	
+	<span class="c1">#Find potentials:</span>
+	<span class="n">V2</span> <span class="o">=</span> <span class="n">Q2</span> <span class="o">/</span> <span class="n">C2</span>
+	<span class="n">V3</span> <span class="o">=</span> <span class="n">Q3</span> <span class="o">/</span> <span class="n">C3</span>
+	
+	<span class="c1">#Find Energy stored:</span>
+	<span class="n">U1</span> <span class="o">=</span> <span class="o">.</span><span class="mi">5</span><span class="o">*</span><span class="n">C1</span><span class="o">*</span><span class="n">V1</span><span class="o">**</span><span class="mi">2</span>
+	<span class="n">U2</span> <span class="o">=</span> <span class="o">.</span><span class="mi">5</span><span class="o">*</span><span class="n">C2</span><span class="o">*</span><span class="n">V2</span><span class="o">**</span><span class="mi">2</span>
+	<span class="n">U3</span> <span class="o">=</span> <span class="o">.</span><span class="mi">5</span><span class="o">*</span><span class="n">C3</span><span class="o">*</span><span class="n">V3</span><span class="o">**</span><span class="mi">2</span>
+	
+	<span class="n">problem_template</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'''</span>
+<span class="s1">    \textbf{{Given the following values}}:</span>
+<span class="s1">    $V_b=\SI{{</span><span class="si">{3:.3g}</span><span class="s1">}}{{\volt}}$,</span>
+<span class="s1">    $C_1=\SI{{</span><span class="si">{0:.3g}</span><span class="s1">}}{{\micro\farad}}$,</span>
+<span class="s1">    $C_2=\SI{{</span><span class="si">{1:.3g}</span><span class="s1">}}{{\micro\farad}}$, and</span>
+<span class="s1">    $C_3=\SI{{</span><span class="si">{2:.3g}</span><span class="s1">}}{{\micro\farad}}$, find the charge on each capacitor, the potential difference across each capacitor, and the energy stored in each capacitor.</span>
+<span class="s1">	'''</span>
+	
+	<span class="n">problem</span> <span class="o">=</span> <span class="n">problem_template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">C1</span><span class="o">/</span><span class="mf">1e-6</span><span class="p">,</span><span class="n">C2</span><span class="o">/</span><span class="mf">1e-6</span><span class="p">,</span><span class="n">C3</span><span class="o">/</span><span class="mf">1e-6</span><span class="p">,</span><span class="n">V1</span><span class="p">)</span>
+	
+	<span class="k">return</span><span class="p">(</span><span class="n">problem</span><span class="p">,</span> <span class="n">C123</span><span class="p">,</span> <span class="n">Q1</span><span class="p">,</span> <span class="n">Q2</span><span class="p">,</span> <span class="n">Q3</span><span class="p">,</span> <span class="n">V1</span><span class="p">,</span> <span class="n">V2</span><span class="p">,</span> <span class="n">V3</span><span class="p">,</span> <span class="n">U1</span><span class="p">,</span> <span class="n">U2</span><span class="p">,</span> <span class="n">U3</span><span class="p">)</span>
+	
+<span class="c1">## Generate 4 unique problems</span>
+<span class="c1">## The chance of two identical problems is very low in this case</span>
+<span class="c1">## But checking for identical problems won't hurt</span>
+<span class="c1">#problems = []</span>
+<span class="c1">#while len(problems) &lt; 4:</span>
+<span class="c1">#    p, c123, q1, q2, q3, v1, v2, v3, u1, u2, u3 = make_problem()</span>
+<span class="c1">#    if p not in problems:</span>
+<span class="c1">#        problems.append(p)</span>
+<span class="c1">#        t = '\\SI{{{0:.3g}}}{{\\micro\\farad}} and \\SI{{{1:.3g}}}{{\\micro\\coulomb}}and \\SI{{{2:.3g}}}{{\\micro\\coulomb}} and \\SI{{{3:.3g}}}{{\\micro\\coulomb}} and \\SI{{{4:.3g}}}{{\\volt}} and \\SI{{{5:.3g}}}{{\\volt}} and \\SI{{{6:.3g}}}{{\\volt}} and \\SI{{{7:.3g}}}{{\\joule}} and \\SI{{{8:.3g}}}{{\\joule}} and \\SI{{{9:.3g}}}{{\\joule}}'</span>
+<span class="c1">#        ra.addsoln(t.format(c123, q1, q2, q3, v1, v2, v3, u1, u2, u3))</span>
+<span class="c1">#</span>
+<span class="c1">#print('\\begin{enumerate}')</span>
+<span class="c1">#for n, p in enumerate(problems):</span>
+<span class="c1">#    print('\\item ' + p)</span>
+<span class="c1">#    if n+1 &lt; len(problems):</span>
+<span class="c1">#        print(r'\vspace{1in}')</span>
+<span class="c1">#print('\\end{enumerate}')</span>
+
+<span class="n">p</span><span class="p">,</span> <span class="n">c123</span><span class="p">,</span> <span class="n">q1</span><span class="p">,</span> <span class="n">q2</span><span class="p">,</span> <span class="n">q3</span><span class="p">,</span> <span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">,</span> <span class="n">v3</span><span class="p">,</span> <span class="n">u1</span><span class="p">,</span> <span class="n">u2</span><span class="p">,</span> <span class="n">u3</span> <span class="o">=</span> <span class="n">make_problem</span><span class="p">()</span>
+<span class="n">t</span> <span class="o">=</span> <span class="s1">'</span><span class="se">\\</span><span class="s1">SI{{</span><span class="si">{0:.3g}</span><span class="s1">}}{{</span><span class="se">\\</span><span class="s1">micro</span><span class="se">\\</span><span class="s1">farad}} and </span><span class="se">\\</span><span class="s1">SI{{</span><span class="si">{1:.3g}</span><span class="s1">}}{{</span><span class="se">\\</span><span class="s1">micro</span><span class="se">\\</span><span class="s1">coulomb}}and </span><span class="se">\\</span><span class="s1">SI{{</span><span class="si">{2:.3g}</span><span class="s1">}}{{</span><span class="se">\\</span><span class="s1">micro</span><span class="se">\\</span><span class="s1">coulomb}} and </span><span class="se">\\</span><span class="s1">SI{{</span><span class="si">{3:.3g}</span><span class="s1">}}{{</span><span class="se">\\</span><span class="s1">micro</span><span class="se">\\</span><span class="s1">coulomb}} and </span><span class="se">\\</span><span class="s1">SI{{</span><span class="si">{4:.3g}</span><span class="s1">}}{{</span><span class="se">\\</span><span class="s1">volt}} and </span><span class="se">\\</span><span class="s1">SI{{</span><span class="si">{5:.3g}</span><span class="s1">}}{{</span><span class="se">\\</span><span class="s1">volt}} and </span><span class="se">\\</span><span class="s1">SI{{</span><span class="si">{6:.3g}</span><span class="s1">}}{{</span><span class="se">\\</span><span class="s1">volt}} and </span><span class="se">\\</span><span class="s1">SI{{</span><span class="si">{7:.3g}</span><span class="s1">}}{{</span><span class="se">\\</span><span class="s1">joule}} and </span><span class="se">\\</span><span class="s1">SI{{</span><span class="si">{8:.3g}</span><span class="s1">}}{{</span><span class="se">\\</span><span class="s1">joule}} and </span><span class="se">\\</span><span class="s1">SI{{</span><span class="si">{9:.3g}</span><span class="s1">}}{{</span><span class="se">\\</span><span class="s1">joule}}'</span>
+<span class="n">ra</span><span class="o">.</span><span class="n">addsoln</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">c123</span><span class="p">,</span> <span class="n">q1</span><span class="p">,</span> <span class="n">q2</span><span class="p">,</span> <span class="n">q3</span><span class="p">,</span> <span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">,</span> <span class="n">v3</span><span class="p">,</span> <span class="n">u1</span><span class="p">,</span> <span class="n">u2</span><span class="p">,</span> <span class="n">u3</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+    \textbf{Given the following values}:
+    $V_b=\SI{1.5}{\volt}$,
+    $C_1=\SI{680}{\micro\farad}$,
+    $C_2=\SI{47}{\micro\farad}$, and
+    $C_3=\SI{330}{\micro\farad}$, find the charge on each capacitor, the potential difference across each capacitor, and the energy stored in each capacitor.
+	
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="kn">from</span> <span class="nn">randassign</span> <span class="kn">import</span> <span class="n">RandAssign</span>
+<span class="n">ra</span> <span class="o">=</span> <span class="n">RandAssign</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">make_problem</span><span class="p">():</span>
+	<span class="c1"># Random values for this problem</span>
+	<span class="k">def</span> <span class="nf">rand_mass</span><span class="p">():</span>
+		<span class="k">return</span> <span class="nb">round</span><span class="p">(</span><span class="n">uniform</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span><span class="mi">2</span><span class="p">)</span>
+	<span class="k">def</span> <span class="nf">rand_length</span><span class="p">():</span>
+		<span class="k">return</span> <span class="nb">round</span><span class="p">(</span><span class="n">uniform</span><span class="p">(</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span><span class="mi">2</span><span class="p">)</span>
+	<span class="k">def</span> <span class="nf">rand_speed</span><span class="p">():</span>
+		<span class="k">return</span> <span class="nb">round</span><span class="p">(</span><span class="n">uniform</span><span class="p">(</span><span class="mf">0.15</span><span class="p">,</span><span class="mf">0.45</span><span class="p">),</span><span class="mi">2</span><span class="p">)</span>
+	<span class="k">def</span> <span class="nf">rand_angle</span><span class="p">():</span>
+		<span class="k">return</span> <span class="n">random</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">65</span><span class="p">)</span>
+	<span class="k">def</span> <span class="nf">rand_k</span><span class="p">():</span>
+		<span class="k">return</span> <span class="n">random</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="mi">19</span><span class="p">,</span><span class="mi">51</span><span class="p">)</span>	
+
+		
+	<span class="n">mass</span> <span class="o">=</span> <span class="n">rand_mass</span><span class="p">()</span>
+	<span class="n">length</span> <span class="o">=</span> <span class="n">rand_length</span><span class="p">()</span>
+	<span class="n">speed</span> <span class="o">=</span> <span class="n">rand_speed</span><span class="p">()</span>
+	<span class="n">angle</span> <span class="o">=</span> <span class="n">rand_angle</span><span class="p">()</span>
+	<span class="n">spring</span> <span class="o">=</span> <span class="n">rand_k</span><span class="p">()</span>
+
+
+		
+	<span class="n">problem_template</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'''</span>
+<span class="s1">	A block with a mass of $m=\SI{{</span><span class="si">{0:.3g}</span><span class="s1">}}{{\kilogram}}$ is placed at rest at the top of a frictionless ramp which rises at an angle,  $\theta =\ang{{</span><span class="si">{3:.3g}</span><span class="s1">}} $, above the horizontal. At the top, the object is initially 8.0 m from the bottom of the incline, as shown in the figure. At the bottom of the ramp is a rough surface ($\mu_k = {{2:.3g}}$ that is $d = \SI{{</span><span class="si">{1:.3g}</span><span class="s1">}}{{\meter}}$ long, as shown. What is not shown is a compressible spring ($k = \SI{{</span><span class="si">{4:.3g}</span><span class="s1">}}{{\Newton/\meter}} $</span>
+<span class="s1">	\\</span>
+<span class="s1">	\\</span>
+<span class="s1">	Determine how much the spring would need to be compressed to stop the block. Does this seem reasonable? Explain why or why not.\\ \\ </span>
+<span class="s1">    Include an energy bar chart diagram.</span>
+
+<span class="s1">	'''</span>
+	
+	<span class="c1">## NO SOLUTION CODE HAS BEEN WRITTEN (YET)</span>
+
+	<span class="n">problem</span> <span class="o">=</span> <span class="n">problem_template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mass</span><span class="p">,</span><span class="n">length</span><span class="p">,</span><span class="n">speed</span><span class="p">,</span><span class="n">angle</span><span class="p">,</span><span class="n">spring</span><span class="p">)</span>
+	
+<span class="c1">#	return(problem,V1,V2,V3,V4,I1,I2,I3,I4,W1,W2,W3,W4)</span>
+	<span class="k">return</span><span class="p">(</span><span class="n">problem</span><span class="p">)</span>
+	
+<span class="c1">## Generate 4 unique problems</span>
+<span class="c1">## The chance of two identical problems is very low in this case</span>
+<span class="c1">## But checking for identical problems won't hurt</span>
+<span class="n">problems</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">problems</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">12</span><span class="p">:</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">make_problem</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">p</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">problems</span><span class="p">:</span>
+        <span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+<span class="c1">#        t = '\\SI{{{0:.3g}}}{{\\volt}} and \\SI{{{1:.3g}}}{{\\volt}}and \\SI{{{2:.3g}}}{{\\volt}} and \\SI{{{3:.3g}}}{{\\volt}} and \\SI{{{4:.3g}}}{{\\volt}} and \\SI{{{5:.3g}}}{{\\ampere}} and \\SI{{{6:.3g}}}{{\\ampere}} and \\SI{{{7:.3g}}}{{\\ampere}} and \\SI{{{8:.3g}}}{{\\ampere}} and \\SI{{{9:.3g}}}{{\\ampere}}'</span>
+<span class="c1">#        ra.addsoln(t.format(v1,v2,v3,v4,v5,i1,i2,i3,i4,i5))</span>
+
+<span class="c1">#print('\\begin{questions}')</span>
+<span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">problems</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="se">\\</span><span class="s1">noindent </span><span class="se">\\</span><span class="s1">begin</span><span class="si">{tabular}</span><span class="s1">{l l r} </span><span class="se">\\</span><span class="s1">textbf{</span><span class="se">\\</span><span class="s1">class} - </span><span class="se">\\</span><span class="s1">textbf{</span><span class="se">\\</span><span class="s1">examnum}  &amp; </span><span class="se">\\</span><span class="s1">textbf</span><span class="si">{Name}</span><span class="s1"> </span><span class="se">\\</span><span class="s1">makebox[3.25in]{</span><span class="se">\\</span><span class="s1">hrulefill}  </span><span class="se">\\</span><span class="s1">\ </span><span class="se">\\</span><span class="s1">end</span><span class="si">{tabular}</span><span class="s1"> </span><span class="se">\\</span><span class="s1">\ </span><span class="se">\\</span><span class="s1">rule[1ex]{</span><span class="se">\\</span><span class="s1">textwidth}</span><span class="si">{2.21pt}</span><span class="s1"> </span><span class="se">\\</span><span class="s1">begin</span><span class="si">{questions}</span><span class="se">\\</span><span class="s1">question '</span><span class="o">+</span> <span class="n">p</span> <span class="o">+</span> <span class="s1">'</span><span class="se">\\</span><span class="s1">end</span><span class="si">{questions}</span><span class="se">\\</span><span class="s1">newpage'</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">problems</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">r</span><span class="s1">'\vspace</span><span class="si">{1in}</span><span class="s1">'</span><span class="p">)</span>
+<span class="c1">#print('\\end{questions}')</span>
+
+<span class="c1">#p = make_problem()</span>
+<span class="c1">#t = '\\SI{{{0:.3g}}}{{\\volt}} and \\SI{{{1:.3g}}}{{\\volt}}and \\SI{{{2:.3g}}}{{\\volt}} and \\SI{{{3:.3g}}}{{\\volt}} and \\SI{{{4:.3g}}}{{\\ampere}} and \\SI{{{5:.3g}}}{{\\ampere}} and \\SI{{{6:.3g}}}{{\\ampere}} and \\SI{{{7:.3g}}}{{\\ampere}}, and \\SI{{{8:.3g}}}{{\\watt}}, and \\SI{{{9:.3g}}}{{\\watt}}, and \\SI{{{10:.3g}}}{{\\watt}} and \\SI{{{11:.3g}}}{{\\watt}}'</span>
+<span class="c1">#ra.addsoln(t.format(v1,v2,v3,v4,i1,i2,i3,i4,w1,w2,w3,w4))</span>
+
+<span class="c1">#print('\\begin{questions}\\question '+ p + '\\end{questions}')</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>\noindent \begin{tabular}{l l r} \textbf{\class} - \textbf{\examnum}  &amp; \textbf{Name} \makebox[3.25in]{\hrulefill}  \\ \end{tabular} \\ \rule[1ex]{\textwidth}{2.21pt} \begin{questions}\question 
+	A block with a mass of $m=\SI{2.61}{\kilogram}$ is placed at rest at the top of a frictionless ramp which rises at an angle,  $\theta =\ang{36} $, above the horizontal. At the top, the object is initially 8.0 m from the bottom of the incline, as shown in the figure. At the bottom of the ramp is a rough surface ($\mu_k = {2:.3g}$ that is $d = \SI{2.6}{\meter}$ long, as shown. What is not shown is a compressible spring ($k = \SI{43}{\Newton/\meter} $
+	\\
+	\\
+	Determine how much the spring would need to be compressed to stop the block. Does this seem reasonable? Explain why or why not.\\ \\ 
+    Include an energy bar chart diagram.
+	\end{questions}\newpage
+\vspace{1in}
+\noindent \begin{tabular}{l l r} \textbf{\class} - \textbf{\examnum}  &amp; \textbf{Name} \makebox[3.25in]{\hrulefill}  \\ \end{tabular} \\ \rule[1ex]{\textwidth}{2.21pt} \begin{questions}\question 
+	A block with a mass of $m=\SI{1.42}{\kilogram}$ is placed at rest at the top of a frictionless ramp which rises at an angle,  $\theta =\ang{55} $, above the horizontal. At the top, the object is initially 8.0 m from the bottom of the incline, as shown in the figure. At the bottom of the ramp is a rough surface ($\mu_k = {2:.3g}$ that is $d = \SI{1.01}{\meter}$ long, as shown. What is not shown is a compressible spring ($k = \SI{26}{\Newton/\meter} $
+	\\
+	\\
+	Determine how much the spring would need to be compressed to stop the block. Does this seem reasonable? Explain why or why not.\\ \\ 
+    Include an energy bar chart diagram.
+	\end{questions}\newpage
+\vspace{1in}
+\noindent \begin{tabular}{l l r} \textbf{\class} - \textbf{\examnum}  &amp; \textbf{Name} \makebox[3.25in]{\hrulefill}  \\ \end{tabular} \\ \rule[1ex]{\textwidth}{2.21pt} \begin{questions}\question 
+	A block with a mass of $m=\SI{2.17}{\kilogram}$ is placed at rest at the top of a frictionless ramp which rises at an angle,  $\theta =\ang{28} $, above the horizontal. At the top, the object is initially 8.0 m from the bottom of the incline, as shown in the figure. At the bottom of the ramp is a rough surface ($\mu_k = {2:.3g}$ that is $d = \SI{3}{\meter}$ long, as shown. What is not shown is a compressible spring ($k = \SI{32}{\Newton/\meter} $
+	\\
+	\\
+	Determine how much the spring would need to be compressed to stop the block. Does this seem reasonable? Explain why or why not.\\ \\ 
+    Include an energy bar chart diagram.
+	\end{questions}\newpage
+\vspace{1in}
+\noindent \begin{tabular}{l l r} \textbf{\class} - \textbf{\examnum}  &amp; \textbf{Name} \makebox[3.25in]{\hrulefill}  \\ \end{tabular} \\ \rule[1ex]{\textwidth}{2.21pt} \begin{questions}\question 
+	A block with a mass of $m=\SI{2.45}{\kilogram}$ is placed at rest at the top of a frictionless ramp which rises at an angle,  $\theta =\ang{25} $, above the horizontal. At the top, the object is initially 8.0 m from the bottom of the incline, as shown in the figure. At the bottom of the ramp is a rough surface ($\mu_k = {2:.3g}$ that is $d = \SI{2.78}{\meter}$ long, as shown. What is not shown is a compressible spring ($k = \SI{25}{\Newton/\meter} $
+	\\
+	\\
+	Determine how much the spring would need to be compressed to stop the block. Does this seem reasonable? Explain why or why not.\\ \\ 
+    Include an energy bar chart diagram.
+	\end{questions}\newpage
+\vspace{1in}
+\noindent \begin{tabular}{l l r} \textbf{\class} - \textbf{\examnum}  &amp; \textbf{Name} \makebox[3.25in]{\hrulefill}  \\ \end{tabular} \\ \rule[1ex]{\textwidth}{2.21pt} \begin{questions}\question 
+	A block with a mass of $m=\SI{1.2}{\kilogram}$ is placed at rest at the top of a frictionless ramp which rises at an angle,  $\theta =\ang{52} $, above the horizontal. At the top, the object is initially 8.0 m from the bottom of the incline, as shown in the figure. At the bottom of the ramp is a rough surface ($\mu_k = {2:.3g}$ that is $d = \SI{2.41}{\meter}$ long, as shown. What is not shown is a compressible spring ($k = \SI{27}{\Newton/\meter} $
+	\\
+	\\
+	Determine how much the spring would need to be compressed to stop the block. Does this seem reasonable? Explain why or why not.\\ \\ 
+    Include an energy bar chart diagram.
+	\end{questions}\newpage
+\vspace{1in}
+\noindent \begin{tabular}{l l r} \textbf{\class} - \textbf{\examnum}  &amp; \textbf{Name} \makebox[3.25in]{\hrulefill}  \\ \end{tabular} \\ \rule[1ex]{\textwidth}{2.21pt} \begin{questions}\question 
+	A block with a mass of $m=\SI{1.35}{\kilogram}$ is placed at rest at the top of a frictionless ramp which rises at an angle,  $\theta =\ang{48} $, above the horizontal. At the top, the object is initially 8.0 m from the bottom of the incline, as shown in the figure. At the bottom of the ramp is a rough surface ($\mu_k = {2:.3g}$ that is $d = \SI{2.88}{\meter}$ long, as shown. What is not shown is a compressible spring ($k = \SI{19}{\Newton/\meter} $
+	\\
+	\\
+	Determine how much the spring would need to be compressed to stop the block. Does this seem reasonable? Explain why or why not.\\ \\ 
+    Include an energy bar chart diagram.
+	\end{questions}\newpage
+\vspace{1in}
+\noindent \begin{tabular}{l l r} \textbf{\class} - \textbf{\examnum}  &amp; \textbf{Name} \makebox[3.25in]{\hrulefill}  \\ \end{tabular} \\ \rule[1ex]{\textwidth}{2.21pt} \begin{questions}\question 
+	A block with a mass of $m=\SI{1.57}{\kilogram}$ is placed at rest at the top of a frictionless ramp which rises at an angle,  $\theta =\ang{48} $, above the horizontal. At the top, the object is initially 8.0 m from the bottom of the incline, as shown in the figure. At the bottom of the ramp is a rough surface ($\mu_k = {2:.3g}$ that is $d = \SI{1.5}{\meter}$ long, as shown. What is not shown is a compressible spring ($k = \SI{31}{\Newton/\meter} $
+	\\
+	\\
+	Determine how much the spring would need to be compressed to stop the block. Does this seem reasonable? Explain why or why not.\\ \\ 
+    Include an energy bar chart diagram.
+	\end{questions}\newpage
+\vspace{1in}
+\noindent \begin{tabular}{l l r} \textbf{\class} - \textbf{\examnum}  &amp; \textbf{Name} \makebox[3.25in]{\hrulefill}  \\ \end{tabular} \\ \rule[1ex]{\textwidth}{2.21pt} \begin{questions}\question 
+	A block with a mass of $m=\SI{1.38}{\kilogram}$ is placed at rest at the top of a frictionless ramp which rises at an angle,  $\theta =\ang{10} $, above the horizontal. At the top, the object is initially 8.0 m from the bottom of the incline, as shown in the figure. At the bottom of the ramp is a rough surface ($\mu_k = {2:.3g}$ that is $d = \SI{0.8}{\meter}$ long, as shown. What is not shown is a compressible spring ($k = \SI{20}{\Newton/\meter} $
+	\\
+	\\
+	Determine how much the spring would need to be compressed to stop the block. Does this seem reasonable? Explain why or why not.\\ \\ 
+    Include an energy bar chart diagram.
+	\end{questions}\newpage
+\vspace{1in}
+\noindent \begin{tabular}{l l r} \textbf{\class} - \textbf{\examnum}  &amp; \textbf{Name} \makebox[3.25in]{\hrulefill}  \\ \end{tabular} \\ \rule[1ex]{\textwidth}{2.21pt} \begin{questions}\question 
+	A block with a mass of $m=\SI{2.35}{\kilogram}$ is placed at rest at the top of a frictionless ramp which rises at an angle,  $\theta =\ang{55} $, above the horizontal. At the top, the object is initially 8.0 m from the bottom of the incline, as shown in the figure. At the bottom of the ramp is a rough surface ($\mu_k = {2:.3g}$ that is $d = \SI{0.54}{\meter}$ long, as shown. What is not shown is a compressible spring ($k = \SI{27}{\Newton/\meter} $
+	\\
+	\\
+	Determine how much the spring would need to be compressed to stop the block. Does this seem reasonable? Explain why or why not.\\ \\ 
+    Include an energy bar chart diagram.
+	\end{questions}\newpage
+\vspace{1in}
+\noindent \begin{tabular}{l l r} \textbf{\class} - \textbf{\examnum}  &amp; \textbf{Name} \makebox[3.25in]{\hrulefill}  \\ \end{tabular} \\ \rule[1ex]{\textwidth}{2.21pt} \begin{questions}\question 
+	A block with a mass of $m=\SI{2.55}{\kilogram}$ is placed at rest at the top of a frictionless ramp which rises at an angle,  $\theta =\ang{17} $, above the horizontal. At the top, the object is initially 8.0 m from the bottom of the incline, as shown in the figure. At the bottom of the ramp is a rough surface ($\mu_k = {2:.3g}$ that is $d = \SI{2.85}{\meter}$ long, as shown. What is not shown is a compressible spring ($k = \SI{19}{\Newton/\meter} $
+	\\
+	\\
+	Determine how much the spring would need to be compressed to stop the block. Does this seem reasonable? Explain why or why not.\\ \\ 
+    Include an energy bar chart diagram.
+	\end{questions}\newpage
+\vspace{1in}
+\noindent \begin{tabular}{l l r} \textbf{\class} - \textbf{\examnum}  &amp; \textbf{Name} \makebox[3.25in]{\hrulefill}  \\ \end{tabular} \\ \rule[1ex]{\textwidth}{2.21pt} \begin{questions}\question 
+	A block with a mass of $m=\SI{2.24}{\kilogram}$ is placed at rest at the top of a frictionless ramp which rises at an angle,  $\theta =\ang{61} $, above the horizontal. At the top, the object is initially 8.0 m from the bottom of the incline, as shown in the figure. At the bottom of the ramp is a rough surface ($\mu_k = {2:.3g}$ that is $d = \SI{2.21}{\meter}$ long, as shown. What is not shown is a compressible spring ($k = \SI{38}{\Newton/\meter} $
+	\\
+	\\
+	Determine how much the spring would need to be compressed to stop the block. Does this seem reasonable? Explain why or why not.\\ \\ 
+    Include an energy bar chart diagram.
+	\end{questions}\newpage
+\vspace{1in}
+\noindent \begin{tabular}{l l r} \textbf{\class} - \textbf{\examnum}  &amp; \textbf{Name} \makebox[3.25in]{\hrulefill}  \\ \end{tabular} \\ \rule[1ex]{\textwidth}{2.21pt} \begin{questions}\question 
+	A block with a mass of $m=\SI{1.85}{\kilogram}$ is placed at rest at the top of a frictionless ramp which rises at an angle,  $\theta =\ang{41} $, above the horizontal. At the top, the object is initially 8.0 m from the bottom of the incline, as shown in the figure. At the bottom of the ramp is a rough surface ($\mu_k = {2:.3g}$ that is $d = \SI{2.12}{\meter}$ long, as shown. What is not shown is a compressible spring ($k = \SI{36}{\Newton/\meter} $
+	\\
+	\\
+	Determine how much the spring would need to be compressed to stop the block. Does this seem reasonable? Explain why or why not.\\ \\ 
+    Include an energy bar chart diagram.
+	\end{questions}\newpage
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="kn">from</span> <span class="nn">randassign</span> <span class="kn">import</span> <span class="n">RandAssign</span>
+<span class="n">ra</span> <span class="o">=</span> <span class="n">RandAssign</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">make_problem</span><span class="p">():</span>
+	<span class="c1"># Random values for this problem</span>
+	<span class="k">def</span> <span class="nf">rand_mass</span><span class="p">():</span>
+		<span class="k">return</span> <span class="nb">round</span><span class="p">(</span><span class="n">uniform</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span><span class="mi">2</span><span class="p">)</span>
+	<span class="k">def</span> <span class="nf">rand_length</span><span class="p">():</span>
+		<span class="k">return</span> <span class="nb">round</span><span class="p">(</span><span class="n">uniform</span><span class="p">(</span><span class="o">.</span><span class="mi">05</span><span class="p">,</span><span class="o">.</span><span class="mi">39</span><span class="p">),</span><span class="mi">2</span><span class="p">)</span>
+	<span class="k">def</span> <span class="nf">rand_accel</span><span class="p">():</span>
+		<span class="k">return</span> <span class="nb">round</span><span class="p">(</span><span class="n">uniform</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">8</span><span class="p">),</span><span class="mi">2</span><span class="p">)</span>
+	<span class="k">def</span> <span class="nf">rand_spring</span><span class="p">():</span>
+		<span class="k">return</span> <span class="n">random</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">65</span><span class="p">)</span>	
+
+		
+	<span class="n">mass</span> <span class="o">=</span> <span class="n">rand_mass</span><span class="p">()</span>
+	<span class="n">length</span> <span class="o">=</span> <span class="n">rand_length</span><span class="p">()</span>
+	<span class="n">accel</span> <span class="o">=</span> <span class="n">rand_accel</span><span class="p">()</span>
+	<span class="n">spring</span> <span class="o">=</span> <span class="n">rand_spring</span><span class="p">()</span>
+
+
+		
+	<span class="n">problem_template</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'''</span>
+<span class="s1">	An object attached to an ideal massless spring is pulled across a frictionless surface. If the spring constant is $k = \SI{{</span><span class="si">{3:.3g}</span><span class="s1">}}{{\newton/\meter}} $ and the spring is stretched by $\SI{{</span><span class="si">{1:.3g}</span><span class="s1">}}{{\meter}}$ when the object is accelerating at $\SI{{</span><span class="si">{2:.3g}</span><span class="s1">}}{{\meter/\second^2}}$, what is the mass of the object?</span>
+<span class="s1">	'''</span>
+	
+	<span class="c1">## SOLUTION CODE HAS BEEN WRITTEN below</span>
+	<span class="n">m</span> <span class="o">=</span> <span class="n">spring</span> <span class="o">*</span> <span class="n">length</span> <span class="o">/</span> <span class="n">accel</span>
+
+	<span class="n">problem</span> <span class="o">=</span> <span class="n">problem_template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mass</span><span class="p">,</span><span class="n">length</span><span class="p">,</span><span class="n">accel</span><span class="p">,</span><span class="n">spring</span><span class="p">)</span>
+	
+	<span class="k">return</span><span class="p">(</span><span class="n">problem</span><span class="p">,</span><span class="n">m</span><span class="p">)</span>
+<span class="c1">#	return(problem)</span>
+	
+<span class="c1">## Generate 4 unique problems</span>
+<span class="c1">## The chance of two identical problems is very low in this case</span>
+<span class="c1">## But checking for identical problems won't hurt</span>
+<span class="n">problems</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">problems</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">:</span>
+    <span class="n">p</span><span class="p">,</span> <span class="n">m</span> <span class="o">=</span> <span class="n">make_problem</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">p</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">problems</span><span class="p">:</span>
+        <span class="n">problems</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="s1">'</span><span class="se">\\</span><span class="s1">SI{{</span><span class="si">{0:.3g}</span><span class="s1">}}{{</span><span class="se">\\</span><span class="s1">kilogram}}'</span>
+        <span class="n">ra</span><span class="o">.</span><span class="n">addsoln</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">m</span><span class="p">))</span>
+
+<span class="c1">#print('\\begin{questions}')</span>
+<span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">problems</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="se">\\</span><span class="s1">noindent </span><span class="se">\\</span><span class="s1">begin</span><span class="si">{tabular}</span><span class="s1">{l l r} </span><span class="se">\\</span><span class="s1">textbf{</span><span class="se">\\</span><span class="s1">class} - </span><span class="se">\\</span><span class="s1">textbf{</span><span class="se">\\</span><span class="s1">examnum}  &amp; </span><span class="se">\\</span><span class="s1">textbf</span><span class="si">{Name}</span><span class="s1"> </span><span class="se">\\</span><span class="s1">makebox[3.25in]{</span><span class="se">\\</span><span class="s1">hrulefill}  </span><span class="se">\\</span><span class="s1">\ </span><span class="se">\\</span><span class="s1">end</span><span class="si">{tabular}</span><span class="s1"> </span><span class="se">\\</span><span class="s1">\ </span><span class="se">\\</span><span class="s1">rule[1ex]{</span><span class="se">\\</span><span class="s1">textwidth}</span><span class="si">{2.21pt}</span><span class="s1"> </span><span class="se">\\</span><span class="s1">begin</span><span class="si">{questions}</span><span class="se">\\</span><span class="s1">question '</span><span class="o">+</span> <span class="n">p</span> <span class="o">+</span> <span class="s1">'</span><span class="se">\\</span><span class="s1">end</span><span class="si">{questions}</span><span class="se">\\</span><span class="s1">newpage'</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">problems</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">r</span><span class="s1">'\vspace</span><span class="si">{1in}</span><span class="s1">'</span><span class="p">)</span>
+<span class="c1">#print('\\end{questions}')</span>
+
+<span class="c1">#p = make_problem()</span>
+<span class="c1">#t = '\\SI{{{0:.3g}}}{{\\volt}} and \\SI{{{1:.3g}}}{{\\volt}}and \\SI{{{2:.3g}}}{{\\volt}} and \\SI{{{3:.3g}}}{{\\volt}} and \\SI{{{4:.3g}}}{{\\ampere}} and \\SI{{{5:.3g}}}{{\\ampere}} and \\SI{{{6:.3g}}}{{\\ampere}} and \\SI{{{7:.3g}}}{{\\ampere}}, and \\SI{{{8:.3g}}}{{\\watt}}, and \\SI{{{9:.3g}}}{{\\watt}}, and \\SI{{{10:.3g}}}{{\\watt}} and \\SI{{{11:.3g}}}{{\\watt}}'</span>
+<span class="c1">#ra.addsoln(t.format(v1,v2,v3,v4,i1,i2,i3,i4,w1,w2,w3,w4))</span>
+
+<span class="c1">#print('\\begin{questions}\\question '+ p + '\\end{questions}')</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>\noindent \begin{tabular}{l l r} \textbf{\class} - \textbf{\examnum}  &amp; \textbf{Name} \makebox[3.25in]{\hrulefill}  \\ \end{tabular} \\ \rule[1ex]{\textwidth}{2.21pt} \begin{questions}\question 
+	An object attached to an ideal massless spring is pulled across a frictionless surface. If the spring constant is $k = \SI{47}{\newton/\meter} $ and the spring is stretched by $\SI{0.39}{\meter}$ when the object is accelerating at $\SI{6.59}{\meter/\second^2}$, what is the mass of the object?
+	\end{questions}\newpage
+\vspace{1in}
+\noindent \begin{tabular}{l l r} \textbf{\class} - \textbf{\examnum}  &amp; \textbf{Name} \makebox[3.25in]{\hrulefill}  \\ \end{tabular} \\ \rule[1ex]{\textwidth}{2.21pt} \begin{questions}\question 
+	An object attached to an ideal massless spring is pulled across a frictionless surface. If the spring constant is $k = \SI{58}{\newton/\meter} $ and the spring is stretched by $\SI{0.25}{\meter}$ when the object is accelerating at $\SI{4.19}{\meter/\second^2}$, what is the mass of the object?
+	\end{questions}\newpage
+\vspace{1in}
+\noindent \begin{tabular}{l l r} \textbf{\class} - \textbf{\examnum}  &amp; \textbf{Name} \makebox[3.25in]{\hrulefill}  \\ \end{tabular} \\ \rule[1ex]{\textwidth}{2.21pt} \begin{questions}\question 
+	An object attached to an ideal massless spring is pulled across a frictionless surface. If the spring constant is $k = \SI{63}{\newton/\meter} $ and the spring is stretched by $\SI{0.32}{\meter}$ when the object is accelerating at $\SI{7.42}{\meter/\second^2}$, what is the mass of the object?
+	\end{questions}\newpage
+\vspace{1in}
+\noindent \begin{tabular}{l l r} \textbf{\class} - \textbf{\examnum}  &amp; \textbf{Name} \makebox[3.25in]{\hrulefill}  \\ \end{tabular} \\ \rule[1ex]{\textwidth}{2.21pt} \begin{questions}\question 
+	An object attached to an ideal massless spring is pulled across a frictionless surface. If the spring constant is $k = \SI{43}{\newton/\meter} $ and the spring is stretched by $\SI{0.29}{\meter}$ when the object is accelerating at $\SI{5.5}{\meter/\second^2}$, what is the mass of the object?
+	\end{questions}\newpage
 </pre>
 </div>
 </div>
